@@ -1,10 +1,14 @@
-const dotenv = require('dotenv');
+const dns = require('dns');
 
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
+const dotenv = require('dotenv');
 dotenv.config();
 
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 
 let database;
+
 
 const initDb = (callback) => {
     if (database) {
@@ -12,7 +16,7 @@ const initDb = (callback) => {
         return callback(null, database);
     }
 
-    
+
 
     MongoClient.connect(process.env.MONGODB_URL)
         .then((client) => {
